@@ -6,14 +6,8 @@
 </template>
 
 <script>
-    function getIndex (list, id) {
-        for (let i = 0; i < list.length; i++) {
-            if (list[i].id === id) {
-                return i;
-            }
-        }
-        return -1;
-    }
+    import { sendMessage } from 'util/ws';
+    import { getIndex } from 'util/collections';
 
     export default {
         props: ['messages', 'messageAttr'],
@@ -31,27 +25,10 @@
         },
         methods: {
             save() {
-                const message = {
-                    text: this.text,
-                };
+                sendMessage({ id: this.id, text: this.text });
 
-                if (this.id) {
-                    this.$resource('/message{/id}').update({ id: this.id }, message).then(response =>
-                        response.json().then(data => {
-                            const index = getIndex(this.messages, data.id);
-                            this.messages.splice(index, 1, data);
-                            this.text = '';
-                            this.id = '';
-                        })
-                    );
-                } else {
-                    this.$resource('/message{/id}').save({}, message).then(response =>
-                        response.json().then(data => {
-                            this.messages.push(data);
-                            this.text = '';
-                        })
-                    )
-                }
+                this.text = '';
+                this.id = '';
             }
         }
     }
