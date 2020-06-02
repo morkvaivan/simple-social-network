@@ -1,16 +1,26 @@
 <template>
-    <div>
-        <div v-if="!profile">Please, authorize with
-            <a href="/login">Google</a>
-        </div>
-        <div v-else>
-            <div>{{profile.name}}&nbsp;<a href="/logout">Log Out</a></div>
-             <messages-list :messages="messages" />
-        </div>
-    </div>
+    <v-app>
+        <v-app-bar app>
+            <v-toolbar-title>Simple Social Network</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <span v-if="profile">{{profile.name}}</span>
+            <v-btn v-if="profile" icon href="/logout">
+                <v-icon>{{ exitToAppIcon }}</v-icon>
+            </v-btn>
+        </v-app-bar>
+        <v-content>
+            <v-container v-if="!profile">Please, authorize with
+                <a href="/login">Google</a>
+            </v-container>
+            <v-container v-if="profile">
+                <messages-list :messages="messages" />
+            </v-container>
+        </v-content>
+    </v-app>
 </template>
 
 <script>
+    import { mdiExitToApp } from '@mdi/js'
     import MessagesList from 'components/messages/MessageList.vue';
     import { addHandler } from 'util/ws';
     import { getIndex } from 'util/collections';
@@ -21,6 +31,7 @@
         },
         data() {
             return {
+                exitToAppIcon: mdiExitToApp,
                 messages: frontendData.messages,
                 profile: frontendData.profile
             }
@@ -39,5 +50,4 @@
 </script>
 
 <style>
-
 </style>
