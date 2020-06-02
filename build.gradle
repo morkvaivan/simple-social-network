@@ -30,6 +30,8 @@ dependencies {
 	implementation 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.1.0.RELEASE'
 	implementation 'org.postgresql:postgresql'
 	implementation 'org.projectlombok:lombok'
+	annotationProcessor "org.projectlombok:lombok:1.18.8"
+	testAnnotationProcessor("org.projectlombok:lombok:1.18.8")
 	implementation 'javax.xml.bind:jaxb-api'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
