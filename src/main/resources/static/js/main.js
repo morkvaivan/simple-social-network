@@ -4,7 +4,9 @@ import '@babel/polyfill';
 import 'vuetify/dist/vuetify.min.css';
 
 import 'api/resource';
+import router from 'router/router';
 import store from 'store/store';
+
 
 import App from 'pages/App.vue';
 import { connect } from './util/ws';
@@ -23,5 +25,6 @@ new Vue({
     }),
     el: '#app',
     store,
+    router,
     render: a => a(App)
 });
