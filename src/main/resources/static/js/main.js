@@ -1,8 +1,11 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify';
+import '@babel/polyfill';
 import 'vuetify/dist/vuetify.min.css';
 
 import 'api/resource';
+import store from 'store/store';
+
 import App from 'pages/App.vue';
 import { connect } from './util/ws';
 
@@ -19,5 +22,6 @@ new Vue({
         }
     }),
     el: '#app',
+    store,
     render: a => a(App)
 });
