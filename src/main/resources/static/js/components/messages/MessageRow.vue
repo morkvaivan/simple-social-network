@@ -14,21 +14,23 @@
 </template>
 
 <script>
-    import { mdiDelete } from '@mdi/js'
+    import { mdiDelete } from '@mdi/js';
+    import { mapActions } from 'vuex';
 
     export default {
-        props: ['message', 'editMessage', 'deleteMessage', 'messages'],
+        props: ['message', 'editMessage'],
         data() {
             return {
                 deleteIcon: mdiDelete
             }
         },
         methods: {
+            ...mapActions(['removeMessageAction']),
             edit() {
                 this.editMessage(this.message);
             },
             del() {
-                this.deleteMessage(this.message);
+                this.removeMessageAction(this.message);
             }
         }
     }
