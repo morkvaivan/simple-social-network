@@ -11,17 +11,22 @@
                 <v-icon>{{ deleteIcon }}</v-icon>
             </v-btn>
         </v-card-actions>
+        <comment-list
+            :comments="message.comments"
+            :message-id="message.id"
+        ></comment-list>
     </v-card>
 </template>
 
 <script>
     import { mdiDelete } from '@mdi/js';
     import { mapActions } from 'vuex';
+    import CommentList from '../comment/CommentList.vue';
     import Media from 'components/media/Media.vue';
 
     export default {
         props: ['message', 'editMessage'],
-        components: { Media },
+        components: { CommentList, Media },
         data() {
             return {
                 deleteIcon: mdiDelete
