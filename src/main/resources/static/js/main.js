@@ -11,7 +11,20 @@ import store from 'store/store';
 import App from 'pages/App.vue';
 import { connect } from './util/ws';
 
-if (frontendData.profile) {
+import * as Sentry from '@sentry/browser';
+import { Vue as VueIntegration } from '@sentry/integrations';
+
+Sentry.init({
+  dsn: 'https://eddf56d8b3fb4e2c885d8cd8ea5b3559@o405767.ingest.sentry.io/5271993',
+  integrations: [new VueIntegration({Vue, attachProps: true})],
+});
+
+Sentry.setUser({
+    id: profile && profile.id,
+    username: profile && profile.name
+ });
+
+if (profile) {
     connect();
 }
 
