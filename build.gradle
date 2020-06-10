@@ -29,6 +29,7 @@ dependencies {
 	implementation 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.1.0.RELEASE'
 	implementation 'org.postgresql:postgresql'
 	implementation 'org.projectlombok:lombok'
+	implementation 'io.sentry:sentry-spring:1.7.30'
 	annotationProcessor "org.projectlombok:lombok:1.18.8"
 	testAnnotationProcessor("org.projectlombok:lombok:1.18.8")
 	implementation 'javax.xml.bind:jaxb-api'
