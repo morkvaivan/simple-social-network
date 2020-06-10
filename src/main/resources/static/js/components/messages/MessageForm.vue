@@ -20,7 +20,7 @@
         data() {
             return {
                 text: '',
-                id: '',
+                id: null, // fixed a bug with adding a new message by changing '' to null
             }
         },
         watch: {
@@ -44,7 +44,7 @@
                 }
 
                 this.text = '';
-                this.id = '';
+                this.id = null; // fixed a bug with adding a new message by changing '' to null
             }
         }
     }

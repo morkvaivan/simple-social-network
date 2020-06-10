@@ -1,6 +1,6 @@
 <template>
     <v-list three-line>
-        <v-subheader>Comment</v-subheader>
+        <v-subheader>Comments</v-subheader>
         <template
             v-for="(item, index) in comments"
         >
