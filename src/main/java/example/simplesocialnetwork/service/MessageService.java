@@ -11,6 +11,7 @@ import example.simplesocialnetwork.dto.ObjectType;
 import example.simplesocialnetwork.repo.MessageRepo;
 import example.simplesocialnetwork.repo.UserSubscriptionRepo;
 import example.simplesocialnetwork.util.WsSender;
+import io.sentry.Sentry;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -49,7 +50,7 @@ public class MessageService {
     ) {
         this.messageRepo = messageRepo;
         this.userSubscriptionRepo = userSubscriptionRepo;
-        this.wsSender = wsSender.getSender(ObjectType.MESSAGE, Views.IdName.class);
+        this.wsSender = wsSender.getSender(ObjectType.MESSAGE, Views.FullMessage.class);
     }
 
     private void fillMeta(Message message) throws IOException {
@@ -100,7 +101,7 @@ public class MessageService {
     }
 
     public Message update(Message messageFromDb, Message message) throws IOException {
-        BeanUtils.copyProperties(message, messageFromDb, "id");
+        messageFromDb.setText(message.getText());
 
         fillMeta(messageFromDb);
 
@@ -128,6 +129,7 @@ public class MessageService {
     public MessagePageDto findForUser(Pageable pageable, User user) {
         List<User> channels = userSubscriptionRepo.findBySubscriber(user)
                 .stream()
+                .filter(UserSubscription::isActive)
                 .map(UserSubscription::getChannel)
                 .collect(Collectors.toList());
 

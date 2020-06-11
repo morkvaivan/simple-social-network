@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.2.6.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id 'java'
+	id "com.moowork.node" version "1.3.1"
 }
 
 group = 'example'
@@ -15,8 +16,20 @@ configurations {
 	}
 }
 
+task buildFront(type: YarnTask) {
+	args = ['add', 'express', '--dev']
+}
+
+yarn_install.dependsOn(yarn_cache_clean)
+buildFront.dependsOn(yarn_install)
+processResources.dependsOn(buildFront)
+
 repositories {
 	mavenCentral()
+}
+
+node {
+	download: true
 }
 
 dependencies {
@@ -29,6 +42,7 @@ dependencies {
 	implementation 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.1.0.RELEASE'
 	implementation 'org.postgresql:postgresql'
 	implementation 'org.projectlombok:lombok'
+	implementation 'io.sentry:sentry-spring:1.7.30'
 	annotationProcessor "org.projectlombok:lombok:1.18.8"
 	testAnnotationProcessor("org.projectlombok:lombok:1.18.8")
 	implementation 'javax.xml.bind:jaxb-api'
